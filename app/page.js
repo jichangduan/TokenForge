@@ -21,11 +21,18 @@ export default function Home() {
   const[factory, setFactory] = useState(null)
   const[fee, setFee] = useState(0)
   const[tokens, setTokens] = useState([])
+  const[token, setToken] = useState([])
   const[showCreate, setShowCreate] = useState(false)
+  const[showTrade, setShowTrade] = useState(false)
 
   function toggleCreate() {
     setShowCreate(!showCreate)
     console.log("Toggle create:", !showCreate)
+  }
+
+  function toggleTrade(token) {
+    setTokens(token)
+    showTrade ? setShowTrade(false) : setShowTrade(ture)
   }
   
   async function loadBlockchainData() {
@@ -122,7 +129,7 @@ export default function Home() {
               ) : (
                 tokens.map((token,index) => (
                   <Token 
-                    toggleTrade={() => {}}
+                    toggleTrade={toggleTrade }
                     token = {token}
                     key = {index}
                   />
@@ -140,6 +147,11 @@ export default function Home() {
           factory={factory} 
         />
       )}
+
+      {showTrade && (
+        <Trade toggleTrade={toggleTrade} token={token} provider={provider} factory={factory} />
+      )}
+
     </div>
   );
 }
