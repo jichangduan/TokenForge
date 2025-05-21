@@ -58,6 +58,12 @@ export default function Home() {
       const totalTokens = await factory.totalTokens()
       const tokens = []
 
+      for (let i =0; i < 6 ; i++){
+        if(i==6){ 
+          break
+        }
+      }
+
       for(let i=0; i < totalTokens; i++){
         const tokenSale = await factory.getTokenSale(i)
         const token = {
@@ -103,6 +109,26 @@ export default function Home() {
             )}
             
           </button>
+        </div>
+
+        <div className="listings">
+            <h1>new listings</h1>
+
+            <div className="tokens">
+              {!account ? (
+                <p>pls connect wallet</p>
+              ) : tokens.length === 0 ? (
+                <p>no tokens listed</p>
+              ) : (
+                tokens.map((token,index) => (
+                  <Token 
+                    toggleTrade={() => {}}
+                    token = {token}
+                    key = {index}
+                  />
+                ))
+              )}
+            </div>
         </div>
       </main>
       
